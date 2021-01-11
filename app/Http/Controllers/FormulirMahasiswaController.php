@@ -61,8 +61,11 @@ class FormulirMahasiswaController extends Controller
     public function store(Request $request)
     {
         $this->validator($request->all())->validate();
+        date_default_timezone_set('Asia/Jakarta');
+        $waktu = date('His');
+        $id_user = $request['id_user'];
 
-        $imageName = time() . '.' . $request->foto->extension();
+        $imageName = $id_user . $waktu . '.' . $request->foto->extension();
 
         $request->foto->move(public_path('images'), $imageName);
 
@@ -233,9 +236,11 @@ class FormulirMahasiswaController extends Controller
 
     public function editFoto(Request $request, $id){
         $this->validatorFoto($request->all())->validate();
+        date_default_timezone_set('Asia/Jakarta');
+        $waktu = date('His');
+        $id_user = auth()->guard('mahasiswa')->user()->id;;
 
-        $imageName = time().'.'.$request->foto->extension();  
-   
+        $imageName = $id_user . $waktu . '.' . $request->foto->extension();
         $request->foto->move(public_path('images'), $imageName);
         $admin = Formulir::whereId($id)->update([
             'foto' => $imageName,

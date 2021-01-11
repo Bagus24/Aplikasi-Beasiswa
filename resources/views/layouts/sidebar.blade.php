@@ -3,10 +3,16 @@
         <a href="{{ url('home') }}" class="simple-text logo-mini">
             Aplikasi Beasiswa
         </a>
-        
+
     </div>
     <div class="sidebar-wrapper">
         <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url('akun_mhs') }}">
+                    <i class="material-icons">account_box</i>
+                    <p>Akun Mahasiswa</p>
+                </a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ url('formulir') }}">
                     <i class="material-icons">library_books</i>
@@ -14,13 +20,12 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ url('akun_mhs') }}">
-                    <i class="material-icons">account_box</i>
-                    <p>Akun Mahasiswa</p>
+                <a class="nav-link" href="{{ url('lampiran') }}">
+                    <i class="material-icons">fact_check</i>
+                    <p>Lampiran</p>
                 </a>
             </li>
-            <!-- your sidebar here -->
-            
+
         </ul>
     </div>
 </div>

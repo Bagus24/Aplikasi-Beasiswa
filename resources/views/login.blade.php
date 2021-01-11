@@ -117,7 +117,7 @@
                                     </span>
                                     @enderror
                                 </div>
-                                <button type="submit" class="btn btn-primary pull-right">Masuk</button>
+                                <button type="submit" class="btn btn-primary pull-right"><i class="material-icons">login</i> Masuk</button>
                                 <br><br><br>
                             </div>
 

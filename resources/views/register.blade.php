@@ -81,7 +81,7 @@
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
-                                            <i class="material-icons">pan_tool</i>
+                                            <i class="material-icons">school</i>
                                         </span>
                                     </div>
 
@@ -128,7 +128,7 @@
                                    
                                     <input id="password-confirm" placeholder="Konfirmasi password..." type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                                 </div>
-                                <button type="submit" class="btn btn-primary pull-right">Daftar</button>
+                                <button type="submit" class="btn btn-primary pull-right"><i class="material-icons">how_to_reg</i> Daftar</button>
                                 <br><br><br>
                             </div>
                         </form>

@@ -23,13 +23,15 @@
 @endif
 <div class="col-md-12">
     <div class="card">
-        <div class="card-header card-header-primary">
-            <h4 class="card-title ">Tabel Formulir</h4>
+        <div class="card-header card-header-text card-header-primary">
+            <div class="card-text">
+                <h4 class="card-title">Tabel Formulir</h4>
+            </div>
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table">
-                    <thead class=" text-primary">
+                <table class="table table-shopping">
+                    <thead>
                         <th>
                             No
                         </th>
@@ -37,14 +39,84 @@
                             Nama Mahasiswa
                         </th>
                         <th>
+                            KTP
+                        </th>
+                        <th>
                             No. HP
+                        </th>
+                        <th>
+                            Tempat Lahir
+                        </th>
+                        <th>
+                            Tanggal Lahir
+                        </th>
+                        <th>
+                            Jenis Kelamin
+                        </th>
+                        <th>
+                            Agama
+                        </th>
+                        <th>
+                            Alamat
+                        </th>
+                        <th>
+                            Kecamatan
+                        </th>
+                        <th>
+                            Desa
+                        </th>
+                        <th>
+                            NIM
                         </th>
                         <th>
                             Nama Kampus
                         </th>
-                        <th class="text-center">
-                            Aksi
+                        <th>
+                            Fakultas
                         </th>
+                        <th>
+                            Jurusan
+                        </th>
+                        <th>
+                            Akreditasi Kampus
+                        </th>
+                        <th>
+                            Akreditasi Prodi
+                        </th>
+                        <th>
+                            Tahun Angkatan
+                        </th>
+                        <th>
+                            IPK
+                        </th>
+                        <th>
+                            No. Rekening
+                        </th>
+                        <th>
+                            Nama Bank
+                        </th>
+                        <th>
+                            Nama Dibuku Rekening
+                        </th>
+                        <th>
+                            Nama Ayah
+                        </th>
+                        <th>
+                            Nama Ibu
+                        </th>
+                        <th>
+                            Jumlah Saudara
+                        </th>
+                        <th>
+                            Pekerjaan Ibu
+                        </th>
+                        <th>
+                            Pekerjaan Ayah
+                        </th>
+                        <th>
+                            Foto
+                        </th>
+
                     </thead>
                     <tbody>
                         @if ($formulir->count() > 0)
@@ -59,51 +131,119 @@
                                 {{ $f->nama }}
                             </td>
                             <td>
+                                {{ $f->no_ktp }}
+                            </td>
+                            <td>
                                 {{ $f->no_hp }}
+                            </td>
+                            <td>
+                                {{ $f->tempat_lahir }}
+                            </td>
+                            <td>
+                                {{ $f->tgl_lahir }}
+                            </td>
+                            <td>
+                                {{ $f->jk }}
+                            </td>
+                            <td>
+                                {{ $f->agama }}
+                            </td>
+                            <td>
+                                {{ $f->alamat }}
+                            </td>
+                            <td>
+                                {{ $f->kec }}
+                            </td>
+                            <td>
+                                {{ $f->desa }}
+                            </td>
+                            <td>
+                                {{ $f->nim }}
                             </td>
                             <td>
                                 {{ $f->nama_kampus }}
                             </td>
-                            <td class="td-actions text-center">
-                                <form id="data-{{ $f->id }}" action="{{ route('formulir.destroy', $f->id)}}" method="post">
-                                    @csrf
-                                    @method('DELETE')
-                                </form>
-                                <button id="detail" rel="tooltip" class="btn btn-info" data-toggle="modal" data-target="#exampleModalLong" data-nama="{{ $f->nama }}">
-                                    <i class="material-icons">description</i>
-                                </button>
-                                <a href="{{ route('formulir.edit', $f->id)}}" type="button" rel="tooltip" class="btn btn-success">
-                                    <i class="material-icons">edit</i>
-                                </a>
-                                <button onclick="hapusFormulir( {{ $f->id }} )" rel="tooltip" class="btn btn-danger">
-                                    <i class="material-icons">close</i>
-                                </button>
+                            <td>
+                                {{ $f->fakultas }}
                             </td>
+                            <td>
+                                {{ $f->jurusan }}
+                            </td>
+                            <td>
+                                {{ $f->akre_kampus }}
+                            </td>
+                            <td>
+                                {{ $f->akre_prodi }}
+                            </td>
+                            <td>
+                                {{ $f->thn_angkatan }}
+                            </td>
+                            <td>
+                                {{ $f->ipk }}
+                            </td>
+                            <td>
+                                {{ $f->no_rek }}
+                            </td>
+                            <td>
+                                {{ $f->bank }}
+                            </td>
+                            <td>
+                                {{ $f->nama_rek }}
+                            </td>
+                            <td>
+                                {{ $f->nama_ayah }}
+                            </td>
+                            <td>
+                                {{ $f->nama_ibu }}
+                            </td>
+                            <td>
+                                {{ $f->jml_saudara }}
+                            </td>
+                            <td>
+                                {{ $f->pekerjaan_ibu }}
+                            </td>
+                            <td>
+                                {{ $f->pekerjaan_ayah }}
+                            </td>
+                            <td>
+                              
+                                <img src="{{ url('images/'. $f->foto) }}" style="height: 50px; width: 50px">
+                            </td>
+
                         </tr>
-                        <!-- Modal -->
-                        <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLongTitle">Rincian Formulir</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        ...
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
                         @endforeach
                         @else
                         <tr>
                             <td></td>
-                            <td>Tidak ada data</td>
-                            <td>Tidak ada data</td>
-                            <td>Tidak ada data</td>
-                            <td></td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            
                         </tr>
                         @endif
 
@@ -120,22 +260,5 @@
 </div>
 
 
-<script>
-    function hapusFormulir(id) {
-        Swal.fire({
-            title: 'Hapus data?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Iya',
-            cancelButtonText: 'Tidak'
-        }).then((result) => {
-            if (result.value) {
-                $('#data-' + id).submit();
-            }
-        })
 
-    }
-</script>
 @endsection

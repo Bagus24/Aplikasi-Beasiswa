@@ -3,10 +3,12 @@
 @section('content')
 <div class="col-md-12">
     <div class="card">
-
-        <div class="card-header card-header-primary">
-            <h4 class="card-title ">Tabel Akun Mahasiswa</h4>
+        <div class="card-header card-header-text card-header-primary">
+            <div class="card-text">
+                <h4 class="card-title">Tabel Akun Mahasiswa</h4>
+            </div>
         </div>
+
         <div class="card-body">
             @if (Session::has('hapus'))
             <script>
@@ -29,8 +31,8 @@
             </script>
             @endif
             <div class="table-responsive">
-                <table class="table">
-                    <thead class=" text-primary">
+                <table class="table table-shopping">
+                    <thead>
                         <th>
                             No
                         </th>
@@ -67,8 +69,6 @@
                             </td>
 
                             <td class="td-actions text-center">
-
-
                                 <form id="data-{{ $m->id }}" action="{{ route('akun_mhs.destroy', $m->id)}}" method="post">
                                     @csrf
                                     @method('DELETE')

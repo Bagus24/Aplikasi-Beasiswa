@@ -5,9 +5,10 @@
 <div style="margin: 0 auto;" class="col-md-8">
     <div class="card">
 
-        <div class="card-header card-header-primary">
-            <h4 class="card-title">Edit Formulir</h4>
-
+        <div class="card-header card-header-text card-header-primary">
+            <div class="card-text">
+                <h4 class="card-title">Edit Formulir</h4>
+            </div>
         </div>
         <div class="card-body">
             <form method="POST" action="{{ route('formulir_mhs.update', $formulir->id) }}" enctype="multipart/form-data">
@@ -271,7 +272,7 @@
 
 
                     <br>
-                    <button type="submit" class="btn btn-primary pull-right">Simpan</button>
+                    <button type="submit" class="btn btn-primary pull-right"><i class="material-icons">save</i> Simpan</button>
                     <div class="clearfix"></div>
                 </div>
             </form>

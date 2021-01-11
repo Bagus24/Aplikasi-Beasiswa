@@ -4,12 +4,14 @@
 <div class="col-md-12">
     <div class="card">
 
-        <div class="card-header card-header-primary">
-            <h4 class="card-title ">Tabel Lampiran</h4>
+        <div class="card-header card-header-text card-header-primary">
+            <div class="card-text">
+                <h4 class="card-title">Tabel Lampiran</h4>
+            </div>
         </div>
         <div class="card-body">
             @if ($lampiran->count() == 0)
-            <a href="{{ route('lampiran_mhs.create')}}" class="btn btn-warning">Tambah</a>
+            <a href="{{ route('lampiran_mhs.create')}}" class="btn btn-success"><i class="material-icons">library_add</i> Tambah</a>
             @endif
             @if (Session::has('tambah'))
             <script>
@@ -42,51 +44,62 @@
             </script>
             @endif
             <div class="table-responsive">
-                <table class="table">
-                    <thead class=" text-primary">
-                        <th style="font-size: 12px;">
+                <table class="table table-shopping">
+                    <thead>
+                        <th>
                             Nama Mahasiswa
                         </th>
-                        <th style="font-size: 12px;">
+                        <th>
                             KK
                         </th>
-                        <th style="font-size: 12px;">
+                        <th>
                             KTP
                         </th>
-                        <th style="font-size: 12px;">
+                        <th>
                             Kartu Mahasiswa
                         </th>
-                        <th style="font-size: 12px;">
+                        <th>
                             Transkrip Nilai
                         </th>
-                        <th style="font-size: 12px;">
+                        <th>
                             Rekening
                         </th>
-                        <th style="font-size: 12px;">
+                        <th>
                             Surat Tidak Terima Beasiswa
                         </th>
-                        <th style="font-size: 12px;">
+                        <th>
                             Surat Akreditas Kampus
                         </th>
-                        <th style="font-size: 12px;">
+                        <th>
                             Surat Akreditas Prodi
                         </th>
-                        <th style="font-size: 12px;">
+                        <th>
                             Surat Bebas Narkoba
                         </th>
-                        <th style="font-size: 12px;">
+                        <th>
                             Surat Ket Aktif Kuliah
                         </th>
-                        <th style="font-size: 12px;">
+                        <th>
                             Surat Permohonan
                         </th>
-                        <th style="font-size: 12px;">
-                            Pakta Integritas
-                        </th>
-                        <th style="font-size: 12px;">
-                            Surat Ket Kurang Mampu
-                        </th>
-                        <th style="font-size: 12px;" class="text-center">
+
+                        <?php
+                        $beasiswa = auth()->guard('mahasiswa')->user()->beasiswa;
+                        if ($beasiswa == 'Kurang Mampu') {
+
+                        ?>
+                            <th>
+                                Pakta Integritas
+                            </th>
+                            <th>
+                                Surat Ket Kurang Mampu
+                            </th>
+                        <?php
+                        }
+
+                        ?>
+
+                        <th class="text-center">
                             Aksi
                         </th>
                     </thead>
@@ -98,48 +111,57 @@
                                 {{ $l->nama }}
                             </td>
                             <td>
-                                {{ $l->kk }}
+                                <img src="{{ url('files/'. $l->kk) }}" onclick="tampilKk()" style="height: 100px; width: 100px">
                             </td>
                             <td>
-                                {{ $l->ktp }}
+                                <img src="{{ url('files/'. $l->ktp) }}" onclick="tampilKtp()" style="height: 100px; width: 100px">
                             </td>
                             <td>
-                                {{ $l->km }}
+                                <img src="{{ url('files/'. $l->km) }}" onclick="tampilKm()" style="height: 100px; width: 100px">
                             </td>
                             <td>
-                                {{ $l->tn }}
+                                <img src="{{ url('files/'. $l->tn) }}" onclick="tampilTn()" style="height: 100px; width: 100px">
                             </td>
                             <td>
-                                {{ $l->rek }}
+                                <img src="{{ url('files/'. $l->rek) }}" onclick="tampilRek()" style="height: 100px; width: 100px">
                             </td>
                             <td>
-                                {{ $l->ttb }}
-                            </td>
-                            <td>
-                                {{ $l->ak }}
-                            </td>
-                            <td>
-                                {{ $l->ap }}
-                            </td>
-                            <td>
-                                {{ $l->bn }}
-                            </td>
-                            <td>
-                                {{ $l->kak }}
-                            </td>
-                            <td>
-                                {{ $l->sp }}
-                            </td>
-                            <td>
-                                {{ $l->pi }}
-                            </td>
-                            <td>
-                                {{ $l->kkm }}
-                            </td>
+                                <a class="btn btn-sm btn-success" href="{{ url('download', $l->ttb) }}"><i class="material-icons">get_app</i> Download</a>
 
+                            </td>
+                            <td>
+                                <a class="btn btn-sm btn-success" href="{{ url('download', $l->ak) }}"><i class="material-icons">get_app</i> Download</a>
+                            </td>
+                            <td>
+                                <a class="btn btn-sm btn-success" href="{{ url('download', $l->ap) }}"><i class="material-icons">get_app</i> Download</a>
+                            </td>
+                            <td>
+                                <a class="btn btn-sm btn-success" href="{{ url('download', $l->bn) }}"><i class="material-icons">get_app</i> Download</a>
+                            </td>
+                            <td>
+                                <a class="btn btn-sm btn-success" href="{{ url('download', $l->kak) }}"><i class="material-icons">get_app</i> Download</a>
+                            </td>
+                            <td>
+                                <a class="btn btn-sm btn-success" href="{{ url('download', $l->sp) }}"><i class="material-icons">get_app</i> Download</a>
+                            </td>
+                            <?php
+                            $beasiswa = auth()->guard('mahasiswa')->user()->beasiswa;
+                            if ($beasiswa == 'Kurang Mampu') {
+
+                            ?>
+                                <td>
+                                    <a class="btn btn-sm btn-success" href="{{ url('download', $l->pi) }}"><i class="material-icons">get_app</i> Download</a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-sm btn-success" href="{{ url('download', $l->kkm) }}"><i class="material-icons">get_app</i> Download</a>
+                                </td>
+                            <?php
+                            }
+
+                            ?>
                             <td class="td-actions text-center">
-                                <a href="{{ route('lampiran_mhs.edit', $l->id)}}" type="button" rel="tooltip" class="btn btn-success">
-                                    <i class="material-icons">edit</i>
+                                <a href="{{ route('lampiran_mhs.edit', $l->id)}}" type="button" rel="tooltip" class="btn btn-warning">
+                                    <i class="material-icons">edit</i> Edit
                                 </a>
                             </td>
                         </tr>
@@ -147,20 +169,30 @@
                         @else
                         <tr>
 
-                            <td>Tidak ada data</td>
-                            <td>Tidak ada data</td>
-                            <td>Tidak ada data</td>
-                            <td>Tidak ada data</td>
-                            <td>Tidak ada data</td>
-                            <td>Tidak ada data</td>
-                            <td>Tidak ada data</td>
-                            <td>Tidak ada data</td>
-                            <td>Tidak ada data</td>
-                            <td>Tidak ada data</td>
-                            <td>Tidak ada data</td>
-                            <td>Tidak ada data</td>
-                            <td>Tidak ada data</td>
-                            <td>Tidak ada data</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <?php
+                            $beasiswa = auth()->guard('mahasiswa')->user()->beasiswa;
+                            if ($beasiswa == 'Kurang Mampu') {
+
+                            ?>
+                                <td>-</td>
+                                <td>-</td>
+                            <?php
+                            }
+
+                            ?>
+
                             <td></td>
                         </tr>
                         @endif
@@ -172,5 +204,80 @@
         </div>
     </div>
 </div>
+
+<div id="tampil_data" style="display: none;" class="col-md-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="col-md-12">
+                <button class="btn btn-danger pull-right" onclick="tutup()"><i class="material-icons">clear</i> Tutup</button>
+                @foreach($lampiran as $l)
+                <img style="display: none;" id="tampil_kk" src="{{ url('files/'. $l->kk) }}" class="img-thumbnail img-responsive">
+                <img style="display: none;" id="tampil_ktp" src="{{ url('files/'. $l->ktp) }}" class="img-thumbnail img-responsive">
+                <img style="display: none;" id="tampil_km" src="{{ url('files/'. $l->km) }}" class="img-thumbnail img-responsive">
+                <img style="display: none;" id="tampil_tn" src="{{ url('files/'. $l->tn) }}" class="img-thumbnail img-responsive">
+                <img style="display: none;" id="tampil_rek" src="{{ url('files/'. $l->rek) }}" class="img-thumbnail img-responsive">
+                @endforeach
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function tampilKk() {
+        document.getElementById("tampil_data").style.display = "inline";
+        document.getElementById("tampil_kk").style.display = "inline";
+        document.getElementById("tampil_ktp").style.display = "none";
+        document.getElementById("tampil_km").style.display = "none";
+        document.getElementById("tampil_tn").style.display = "none";
+        document.getElementById("tampil_rek").style.display = "none";
+    }
+
+    function tampilKtp() {
+        document.getElementById("tampil_data").style.display = "inline";
+        document.getElementById("tampil_kk").style.display = "none";
+        document.getElementById("tampil_ktp").style.display = "inline";
+        document.getElementById("tampil_km").style.display = "none";
+        document.getElementById("tampil_tn").style.display = "none";
+        document.getElementById("tampil_rek").style.display = "none";
+    }
+
+    function tampilKm() {
+        document.getElementById("tampil_data").style.display = "inline";
+        document.getElementById("tampil_kk").style.display = "none";
+        document.getElementById("tampil_ktp").style.display = "none";
+        document.getElementById("tampil_km").style.display = "inline";
+        document.getElementById("tampil_tn").style.display = "none";
+        document.getElementById("tampil_rek").style.display = "none";
+    }
+
+    function tampilTn() {
+        document.getElementById("tampil_data").style.display = "inline";
+        document.getElementById("tampil_kk").style.display = "none";
+        document.getElementById("tampil_ktp").style.display = "none";
+        document.getElementById("tampil_km").style.display = "none";
+        document.getElementById("tampil_tn").style.display = "inline";
+        document.getElementById("tampil_rek").style.display = "none";
+    }
+
+    function tampilRek() {
+        document.getElementById("tampil_data").style.display = "inline";
+        document.getElementById("tampil_kk").style.display = "none";
+        document.getElementById("tampil_ktp").style.display = "none";
+        document.getElementById("tampil_km").style.display = "none";
+        document.getElementById("tampil_tn").style.display = "none";
+        document.getElementById("tampil_rek").style.display = "inline";
+    }
+
+    function tutup() {
+        document.getElementById("tampil_data").style.display = "none";
+        document.getElementById("tampil_kk").style.display = "none";
+        document.getElementById("tampil_ktp").style.display = "none";
+        document.getElementById("tampil_km").style.display = "none";
+        document.getElementById("tampil_tn").style.display = "none";
+        document.getElementById("tampil_rek").style.display = "none";
+    }
+</script>
 
 @endsection

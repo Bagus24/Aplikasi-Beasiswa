@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Mahasiswa;
 use Illuminate\Support\Facades\Validator;
+use App\Formulir;
+use App\Lampiran;
 
 class AkunMhsController extends Controller
 {
@@ -83,7 +85,11 @@ class AkunMhsController extends Controller
     public function destroy($id)
     {
         $mahasiswa = Mahasiswa::findOrFail($id);
+        $formulir = Formulir::where('id_user', $id)->delete();
+        $lampiran = Lampiran::where('id_user', $id)->delete();
+
         $mahasiswa->delete();
+        
         return redirect('akun_mhs')->with('hapus', 'Data telah dihapus!');
     }
 }

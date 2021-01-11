@@ -29,41 +29,64 @@ if ($hitung > 0) {
     @endif
     <div class="col-md-4">
         <div class="card">
-            <div class="card-header card-header-primary">
-                <h4 class="card-title">Foto</h4>
 
+            <div class="card-header card-header-text card-header-primary">
+                <div class="card-text">
+                    <h4 class="card-title">Foto Profil</h4>
+                </div>
             </div>
             <div class="card-body">
                 <form method="POST" action="{{ url('formulir_mhs/update-foto', $formulir->id) }}" enctype="multipart/form-data">
-                @csrf
+                    @csrf
                     <div class="form-group">
-                        <div class="fileinput fileinput-new text-center" data-provides="fileinput">
-                            <div class="fileinput-preview fileinput-exists thumbnail img-raised">
-                                <img style="width: 400px; height: 400px" src="{{ url('images/'. $formulir->foto) }}" class=" img-thumbnail img-responsive">
-                            </div>
-                            <div>
-                                <span class="btn btn-raised btn-round btn-default btn-file">
-                                    <span class="fileinput-new">Ganti Foto</span>
-                                    <input accept="image/jpeg,image/jpg,image/png," type="file" class="form-control @error('foto') is-invalid @enderror" name="foto" required>
-                                    @error('foto')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </span>
-                                <button type="submit" class="btn btn-primary btn-round fileinput-exists"> Simpan</a>
-                            </div>
-                        </div>
+                        <img src="{{ url('images/'. $formulir->foto) }}" style="width: 400px; height: 350px" id="gambar_foto" src="" alt="..." class="img-thumbnail img-responsive">
                     </div>
+
+                    <div class="row form-group">
+                        <div style="margin: 0 auto;">
+                            <input name="foto" id="input_foto" type="file" accept="image/jpeg,image/jpg,image/png," class="form-control @error('foto') is-invalid @enderror" style="display: none;" required>
+                            <button type="button" id="btn_foto" class="btn btn-danger btn-sm"><i class="material-icons">perm_media</i> Ganti foto</button>
+                            @error('foto')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                            <button type="submit" class="btn btn-primary btn-sm fileinput-exists"><i class="material-icons">save</i> Simpan</a>
+                        </div>
+
+                    </div>
+
+                    <script>
+                        var btn_foto = document.getElementById('btn_foto');
+                        var input_foto = document.getElementById('input_foto');
+
+                        btn_foto.addEventListener('click', function() {
+                            input_foto.click();
+                        })
+                        input_foto.addEventListener('change', function() {
+                            gambar_foto(this);
+                        })
+
+                        function gambar_foto(a) {
+                            if (a.files && a.files[0]) {
+                                var reader = new FileReader();
+                                reader.onload = function(e) {
+                                    document.getElementById('gambar_foto').src = e.target.result;
+                                }
+                                reader.readAsDataURL(a.files[0]);
+                            }
+                        }
+                    </script>
                 </form>
             </div>
         </div>
     </div>
     <div class="col-md-8">
         <div class="card">
-            <div class="card-header card-header-primary">
-                <h4 class="card-title">Formulir Anda</h4>
-
+            <div class="card-header card-header-text card-header-primary">
+                <div class="card-text">
+                    <h4 class="card-title">Rincian Formulir</h4>
+                </div>
             </div>
             <div class="card-body">
                 <br>
@@ -303,7 +326,7 @@ if ($hitung > 0) {
                     </div>
                 </div>
                 <br>
-                <a href="{{ route('formulir_mhs.edit', $formulir->id) }}" class="btn btn-primary pull-right">Edit</a>
+                <a href="{{ route('formulir_mhs.edit', $formulir->id) }}" class="btn btn-warning pull-right"><i class="material-icons">create</i> Edit</a>
                 <div class="clearfix"></div>
             </div>
         </div>
@@ -315,35 +338,37 @@ if ($hitung > 0) {
 ?>
     <div style="margin: 0 auto;" class="col-md-8">
         <div class="card">
-
-            <div class="card-header card-header-primary">
-                <h4 class="card-title">Formulir</h4>
-                <p class="card-category">Lengkapi formulir terlebih dahulu!</p>
+            <div class="card-header card-header-text card-header-primary">
+                <div class="card-text">
+                    <h4 class="card-title">Formulir</h4>
+                    <p class="card-category">Lengkapi formulir terlebih dahulu!</p>
+                </div>
             </div>
+
             <div class="card-body">
                 <form method="POST" action="{{ route('formulir_mhs.store') }}" enctype="multipart/form-data">
                     @csrf
                     <br>
                     <div class="col">
-                        
 
-                            <input type="hidden" class="form-control @error('id_user') is-invalid @enderror" value="{{ auth()->guard('mahasiswa')->user()->id }}" name="id_user" required>
-                            @error('id_user')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
 
-                        
+                        <input type="hidden" class="form-control @error('id_user') is-invalid @enderror" value="{{ auth()->guard('mahasiswa')->user()->id }}" name="id_user" required>
+                        @error('id_user')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
 
-                            <input type="hidden" class="form-control @error('nama') is-invalid @enderror" value="{{ auth()->guard('mahasiswa')->user()->nama }}" name="nama" required>
-                            @error('nama')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                            
-                     
+
+
+                        <input type="hidden" class="form-control @error('nama') is-invalid @enderror" value="{{ auth()->guard('mahasiswa')->user()->nama }}" name="nama" required>
+                        @error('nama')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+
+
                         <div class="form-group">
                             <label class="bmd-label-floating">No KTP</label>
                             <input maxlength="16" type="number" class="form-control @error('no_ktp') is-invalid @enderror" name="no_ktp" required>
@@ -567,27 +592,49 @@ if ($hitung > 0) {
                             </span>
                             @enderror
                         </div>
-                        <div class="form-group">
-                            <label class="bmd-label-floating">Foto</label>
-                            <div class="fileinput fileinput-new text-center" data-provides="fileinput">
-                                <div class="fileinput-preview fileinput-exists thumbnail img-raised"></div>
-                                <div>
-                                    <span class="btn btn-raised btn-round btn-default btn-file">
-                                        <span class="fileinput-new">Pilih Foto</span>
-                                        <input accept="image/jpeg,image/jpg,image/png," type="file" class="form-control @error('foto') is-invalid @enderror" name="foto" required>
-                                        @error('foto')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
-                                    </span>
-                                    <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Hapus</a>
-                                </div>
+
+                        <div class="row form-group">
+                            <label for="exampleFile">Foto</label>
+                            <div class="col-md-2"></div>
+                            <div class="col-md-8">
+                                <input name="foto" id="input_foto" type="file" accept="image/jpeg,image/jpg,image/png," class="form-control @error('foto') is-invalid @enderror" style="display: none;" required>
+                                <button type="button" id="btn_foto" class="btn btn-danger btn-sm"><i class="material-icons">perm_media</i> Pilih</button>
+                                @error('foto')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                             </div>
                         </div>
+                        <div class="form-group">
+                            <img style="display: none;" src="" style="width: 400px; height: 200px" id="gambar_foto" src="" alt="..." class="img-thumbnail img-responsive">
+                        </div>
+
+                        <script>
+                            var btn_foto = document.getElementById('btn_foto');
+                            var input_foto = document.getElementById('input_foto');
+                            var gbr_foto = document.getElementById('gambar_foto');
+                            btn_foto.addEventListener('click', function() {
+                                input_foto.click();
+                            })
+                            input_foto.addEventListener('change', function() {
+                                gambar_foto(this);
+                            })
+
+                            function gambar_foto(a) {
+                                if (a.files && a.files[0]) {
+                                    var reader = new FileReader();
+                                    reader.onload = function(e) {
+                                        document.getElementById('gambar_foto').src = e.target.result;
+                                    }
+                                    gbr_foto.style.display = "inline";
+                                    reader.readAsDataURL(a.files[0]);
+                                }
+                            }
+                        </script>
 
                         <br>
-                        <button type="submit" class="btn btn-primary pull-right">Simpan</button>
+                        <button type="submit" class="btn btn-primary pull-right"><i class="material-icons">save</i> Simpan</button>
                         <div class="clearfix"></div>
                     </div>
                 </form>

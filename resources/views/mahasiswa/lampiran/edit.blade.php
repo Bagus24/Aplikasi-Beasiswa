@@ -5,18 +5,19 @@
     <div class="card">
         <div class="card-header card-header-text card-header-primary">
             <div class="card-text">
-                <h4 class="card-title">Lengkapi Lampiran</h4>
+                <h4 class="card-title">Edit Lampiran</h4>
             </div>
         </div>
 
         <div class="card-body">
-            <form method="POST" action="{{ route('lampiran_mhs.store') }}" enctype="multipart/form-data">
+            <form class="" action="{{ route('lampiran_mhs.update', $lampiran->id ) }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                @method('PUT')
                 <br>
                 <div class="col">
 
 
-                    <input type="hidden" class="form-control @error('id_user') is-invalid @enderror" value="{{ auth()->guard('mahasiswa')->user()->id }}" name="id_user" required>
+                    <input type="hidden" class="form-control @error('id_user') is-invalid @enderror" value="{{ auth()->guard('mahasiswa')->user()->id }}" name="id_user">
                     @error('id_user')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -25,7 +26,7 @@
 
 
 
-                    <input type="hidden" class="form-control @error('nama') is-invalid @enderror" value="{{ auth()->guard('mahasiswa')->user()->nama }}" name="nama" required>
+                    <input type="hidden" class="form-control @error('nama') is-invalid @enderror" value="{{ auth()->guard('mahasiswa')->user()->nama }}" name="nama">
                     @error('nama')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -35,7 +36,7 @@
                     <div class="row form-group">
                         <label for="exampleFile" class="col-md-4">Foto Kartu Keluarga</label>
                         <div class="col-md-8">
-                            <input name="kk" id="input_kk" type="file" accept="image/jpeg,image/jpg,image/png," class="form-control @error('kk') is-invalid @enderror" style="display: none;" required>
+                            <input name="kk" id="input_kk" type="file" accept="image/jpeg,image/jpg,image/png," class="form-control @error('kk') is-invalid @enderror" style="display: none;">
                             <button type="button" id="btn_kk" class="btn btn-danger btn-sm"><i class="material-icons">perm_media</i> Pilih</button>
                             @error('kk')
                             <span class="invalid-feedback" role="alert">
@@ -51,10 +52,13 @@
                         </div>
                     </div>
 
+
+
+
                     <div class="row form-group">
                         <label for="exampleFile" class="col-md-4">Foto Kartu Tanda Penduduk</label>
                         <div class="col-md-8">
-                            <input name="ktp" id="input_ktp" type="file" accept="image/jpeg,image/jpg,image/png," class="form-control @error('ktp') is-invalid @enderror" style="display: none;" required>
+                            <input name="ktp" id="input_ktp" type="file" accept="image/jpeg,image/jpg,image/png," class="form-control @error('ktp') is-invalid @enderror" style="display: none;">
                             <button type="button" id="btn_ktp" class="btn btn-danger btn-sm"><i class="material-icons">perm_media</i> Pilih</button>
                             @error('ktp')
                             <span class="invalid-feedback" role="alert">
@@ -73,7 +77,7 @@
                     <div class="row form-group">
                         <label for="exampleFile" class="col-md-4">Foto Kartu Mahasiswa</label>
                         <div class="col-md-8">
-                            <input name="km" id="input_km" type="file" accept="image/jpeg,image/jpg,image/png," class="form-control @error('km') is-invalid @enderror" style="display: none;" required>
+                            <input name="km" id="input_km" type="file" accept="image/jpeg,image/jpg,image/png," class="form-control @error('km') is-invalid @enderror" style="display: none;">
                             <button type="button" id="btn_km" class="btn btn-danger btn-sm"><i class="material-icons">perm_media</i> Pilih</button>
                             @error('km')
                             <span class="invalid-feedback" role="alert">
@@ -92,7 +96,7 @@
                     <div class="row form-group">
                         <label for="exampleFile" class="col-md-4">Foto Transkrip Nilai</label>
                         <div class="col-md-8">
-                            <input name="tn" id="input_tn" type="file" accept="image/jpeg,image/jpg,image/png," class="form-control @error('tn') is-invalid @enderror" style="display: none;" required>
+                            <input name="tn" id="input_tn" type="file" accept="image/jpeg,image/jpg,image/png," class="form-control @error('tn') is-invalid @enderror" style="display: none;">
                             <button type="button" id="btn_tn" class="btn btn-danger btn-sm"><i class="material-icons">perm_media</i> Pilih</button>
                             @error('tn')
                             <span class="invalid-feedback" role="alert">
@@ -111,7 +115,7 @@
                     <div class="row form-group">
                         <label for="exampleFile" class="col-md-4">Foto Rekening</label>
                         <div class="col-md-8">
-                            <input name="rek" id="input_rek" type="file" accept="image/jpeg,image/jpg,image/png," class="form-control @error('rek') is-invalid @enderror" style="display: none;" required>
+                            <input name="rek" id="input_rek" type="file" accept="image/jpeg,image/jpg,image/png," class="form-control @error('rek') is-invalid @enderror" style="display: none;">
                             <button type="button" id="btn_rek" class="btn btn-danger btn-sm"><i class="material-icons">perm_media</i> Pilih</button>
                             @error('rek')
                             <span class="invalid-feedback" role="alert">
@@ -138,7 +142,7 @@
                         <div class="col-md-4"></div>
                         <div class="col-md-8">
                             <input id="text_ttb" style="display: none;" placeholder="nama file.." class="form-control col-md-12" type="text">
-                            <input type="file" accept=".doc,.docx" class="form-control @error('ttb') is-invalid @enderror col-md-8" style="display: none;" name="ttb" id="ttb" required>
+                            <input type="file" accept=".doc,.docx" class="form-control @error('ttb') is-invalid @enderror col-md-8" style="display: none;" name="ttb" id="ttb">
                             @error('ttb')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -158,7 +162,7 @@
                         <div class="col-md-8">
 
                             <input id="text_ak" style="display: none;" placeholder="nama file.." class="form-control col-md-12" type="text">
-                            <input type="file" accept=".doc,.docx" class="form-control @error('ak') is-invalid @enderror col-md-8" style="display: none;" name="ak" id="ak" required>
+                            <input type="file" accept=".doc,.docx" class="form-control @error('ak') is-invalid @enderror col-md-8" style="display: none;" name="ak" id="ak">
                             @error('ak')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -178,7 +182,7 @@
                         <div class="col-md-8">
 
                             <input id="text_ap" style="display: none;" placeholder="nama file.." class="form-control col-md-12" type="text">
-                            <input type="file" accept=".doc,.docx" class="form-control @error('ap') is-invalid @enderror col-md-8" style="display: none;" name="ap" id="ap" required>
+                            <input type="file" accept=".doc,.docx" class="form-control @error('ap') is-invalid @enderror col-md-8" style="display: none;" name="ap" id="ap">
                             @error('ap')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -199,7 +203,7 @@
                         <div class="col-md-8">
 
                             <input id="text_bn" style="display: none;" placeholder="nama file.." class="form-control col-md-12" type="text">
-                            <input type="file" accept=".doc,.docx" class="form-control @error('bn') is-invalid @enderror col-md-8" style="display: none;" name="bn" id="bn" required>
+                            <input type="file" accept=".doc,.docx" class="form-control @error('bn') is-invalid @enderror col-md-8" style="display: none;" name="bn" id="bn">
                             @error('bn')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -219,7 +223,7 @@
                         <div class="col-md-8">
 
                             <input id="text_kak" style="display: none;" placeholder="nama file.." class="form-control col-md-12" type="text">
-                            <input type="file" accept=".doc,.docx" class="form-control @error('kak') is-invalid @enderror col-md-8" style="display: none;" name="kak" id="kak" required>
+                            <input type="file" accept=".doc,.docx" class="form-control @error('kak') is-invalid @enderror col-md-8" style="display: none;" name="kak" id="kak">
                             @error('kak')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -240,7 +244,7 @@
                         <div class="col-md-8">
 
                             <input id="text_sp" style="display: none;" placeholder="nama file.." class="form-control col-md-12" type="text">
-                            <input type="file" accept=".doc,.docx" class="form-control @error('sp') is-invalid @enderror col-md-8" style="display: none;" name="sp" id="sp" required>
+                            <input type="file" accept=".doc,.docx" class="form-control @error('sp') is-invalid @enderror col-md-8" style="display: none;" name="sp" id="sp">
                             @error('sp')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
